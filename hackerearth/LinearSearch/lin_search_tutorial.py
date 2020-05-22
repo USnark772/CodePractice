@@ -39,27 +39,43 @@ def calculate(length: int, target: int, nums: list) -> int:
     return ret
 
 
-def get_input() -> (int, int, list):
+def parse_input(lines: list) -> (int, int, list):
     """
-    Get user input as two lines. Assume user input is always valid as space separated integers.
+    Parse list of user input lines into integers specific to this problem. Assuming there are two lines
+    Line one has two space separated integers.
+    Line two has a variable number of space separated integers.
+    :param lines: The list of user input lines assumed to be strings.
     :return (int, int, list): (length of list, target number, list of numbers).
     """
-    line_one = input()
+    line_one = lines[0]
+    line_two = lines[1]
     n, m = line_one.split(" ")
     list_len = int(n)
     target_num = int(m)
-    line_two = input()
     str_list = line_two.split(" ")
     num_list = [int(x) for x in str_list]
     return list_len, target_num, num_list
+
+
+def get_input(num_lines: int) -> list:
+    """
+    Get lines of user input equal to num_lines.
+    :param num_lines: The number of lines to get from the user.
+    :return list: A list of user input lines.
+    """
+    lines = list()
+    for i in range(num_lines):
+        lines.append(input())
+    return lines
 
 
 def main():
     """
     Get user input, calculate result, print result.
     """
-    n, m, nums = get_input()
-    res = calculate(n, m, nums)
+    lines = get_input(2)
+    args = parse_input(lines)
+    res = calculate(*args)
     print(res)
 
 
