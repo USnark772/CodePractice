@@ -31,15 +31,18 @@ Sample input:
 Sample output:
 3
 """
+num_input_lines = 3
 
 
 def calculate(n: int, nums: list, k: int) -> int:
     """
     Calculate the index of the given value in the list of numbers.
+    This code ignores any repeated numbers with value k in the list,
+    it only returns the index of the first occurrence of k.
     :param n: The number of numbers in the list.
     :param nums: The list of numbers.
     :param k: The value to search for.
-    :return int: The index of the value in the list.
+    :return int: The index of the first occurence of the value in the list.
 
     >>> calculate(5, [1, 2, 3, 4, 5], 4)
     3
@@ -83,7 +86,7 @@ def main():
     """
     Get user input, calculate result, print result.
     """
-    lines = get_input(3)
+    lines = get_input(num_input_lines)
     # lines = list()
     # with open(os.path.dirname(__file__) + "/input17.txt", "r") as test_input:
     #     for line in test_input.readlines():
