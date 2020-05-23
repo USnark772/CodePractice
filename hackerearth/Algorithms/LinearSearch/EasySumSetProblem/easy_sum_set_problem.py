@@ -39,35 +39,37 @@ Explanation:
 """
 import os
 
-doc_testing = True
-use_file = True
+doc_testing = False
+use_file = False
 
 
-def calculate(n: int, m: int, a: list, c: list) -> set:
+def calculate(n: int, m: int, a: list, c: list) -> list:
     """
-    Calculate the set B from the sets A and C
+    Calculate the set B from the sets A and C.
+    First find range of set B using largest and smallest values in A and C.
+    Second test each number in range to see if valid value for B.
     :param n: The number of elements in a.
     :param m: The number of elements in c.
     :param a: The set A.
     :param c: The set C.
-    :return list: The set B
+    :return list: The sorted set B.
 
     >>> calculate(2, 3, [1, 2], [3, 4, 5])
     {2, 3}
     """
     ret = set()
-    biggest_c = max(c)
-    smallest_c = min(c)
-    biggest_a = max(a)
-    smallest_a = min(a)
-
-    max_b = abs(biggest_a - biggest_c)
-    min_b = abs(smallest_a - smallest_c)
-    ret.add(min_b)
-    ret.add(max_b)
-    for i in range(min_b, max_b):
-        ret.add(i)
-    return ret
+    biggest = abs(max(a) - max(c))
+    smallest = abs(min(a) - min(c))
+    ret.add(smallest)
+    ret.add(biggest)
+    for i in range(smallest + 1, biggest):
+        passes = True
+        for e in a:
+            if not i + e in c:
+                passes = False
+        if passes:
+            ret.add(i)
+    return sorted(ret)
 
 
 def parse_input(lines: list) -> (int, int, list, list):
