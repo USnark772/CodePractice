@@ -38,6 +38,7 @@ n is the number of times it will rain.
 m is the number of garments on the line.
 g is the number of attempts we have to get dry garments from the line.
 """
+import os
 
 
 def calculate(num_rains: int, num_garments: int, num_tries: int, rain_times: list, dry_times: list) -> int:
@@ -51,12 +52,18 @@ def calculate(num_rains: int, num_garments: int, num_tries: int, rain_times: lis
     :param rain_times: A list of times at which it will rain.
     :param dry_times: A list of times it takes each garment to dry.
     :return int: The number of dry garments we can retrieve from the line.
+
+    >>> calculate(3, 3, 2, [3, 5, 8], [4, 1, 3])
+    2
     """
     retrieved = 0
     tried = 0
     rain_breaks = list()
+
     for i in range(1, num_rains):
-        rain_breaks.append(rain_times[i] - rain_times[i - 1])
+        rain_delay = rain_times[i] - rain_times[i - 1]
+        rain_breaks.append(rain_delay)
+
     for i in range(len(rain_breaks)):
         longest_break = max(rain_breaks)
         if longest_break < 0:
@@ -66,11 +73,16 @@ def calculate(num_rains: int, num_garments: int, num_tries: int, rain_times: lis
         rain_breaks[rain_breaks.index(longest_break)] = -1
         to_remove = list()
         for b in range(len(dry_times)):
-            if dry_times[b] < longest_break:
-                to_remove.append(i)
-        retrieved += len(to_remove)
-        for a in to_remove:
-            del dry_times[a]
+            if dry_times[b] <= longest_break:
+                to_remove.append(b)
+        if len(to_remove) > 0:
+            tried += 1
+            retrieved += len(to_remove)
+            line_to_print = "Removing: "
+            to_remove.reverse()
+            for a in to_remove:
+                line_to_print += str(dry_times[a]) + ", "
+                del dry_times[a]
     return retrieved
 
 
@@ -111,12 +123,17 @@ def main():
     """
     Get user input, calculate result, print result.
     """
-    # lines = get_input(3)
-    lines = ["3 3 2", "3 5 8", "4 1 3"]
+    lines = get_input(3)
+    # lines = list()
+    # with open(os.path.dirname(__file__) + "/input17.txt", "r") as test_input:
+    #     for line in test_input.readlines():
+    #         lines.append(line)
     args = parse_input(lines)
     res = calculate(*args)
     print(res)
 
 
 if __name__ == '__main__':
+    # import doctest
+    # doctest.testmod()
     main()

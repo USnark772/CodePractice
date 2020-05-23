@@ -31,6 +31,9 @@ def calculate(length: int, target: int, nums: list) -> int:
     :param target: The target to search for in nums list.
     :param nums: The nums list.
     :return int: The index or -1 if no occurrence of target in nums list.
+
+    >>> calculate(5, 1, [1, 2, 3, 4, 1])
+    5
     """
     ret = -1
     for i in range(length):
@@ -80,4 +83,6 @@ def main():
 
 
 if __name__ == '__main__':
+    # import doctest
+    # doctest.testmod()
     main()
