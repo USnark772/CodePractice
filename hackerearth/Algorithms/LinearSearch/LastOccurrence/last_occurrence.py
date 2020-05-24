@@ -2,6 +2,9 @@
 Author: Phillip Riskin
 Date: 2020
 Project: hackerearth.com practice.
+Section: Algorithms
+Subsection: Searching
+Type: Linear Search
 Problem: Last Occurrence (tutorial practice problem).
 
 Description:

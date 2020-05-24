@@ -2,6 +2,9 @@
 Author: Phillip Riskin
 Date: 2020
 Project: hackerearth.com practice.
+Section: Algorithms
+Subsection: Searching
+Type: Linear Search
 Problem: Wet Clothes
 
 Description:
@@ -83,6 +86,8 @@ def calculate(num_rains: int, num_garments: int, num_tries: int, rain_times: lis
             for a in to_remove:
                 line_to_print += str(dry_times[a]) + ", "
                 del dry_times[a]
+        else:
+            break
     return retrieved
 
 
@@ -123,11 +128,11 @@ def main():
     """
     Get user input, calculate result, print result.
     """
-    lines = get_input(3)
-    # lines = list()
-    # with open(os.path.dirname(__file__) + "/input17.txt", "r") as test_input:
-    #     for line in test_input.readlines():
-    #         lines.append(line)
+    # lines = get_input(3)
+    lines = list()
+    with open(os.path.dirname(__file__) + "/input19.txt", "r") as test_input:
+        for line in test_input.readlines():
+            lines.append(line)
     args = parse_input(lines)
     res = calculate(*args)
     print(res)
